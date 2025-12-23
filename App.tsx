@@ -24,6 +24,21 @@ const App: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Auto-format URLs when the user clicks away from the input
+  const handleUrlBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    let finalValue = value.trim();
+
+    if (!finalValue) return;
+
+    // If the user entered something that looks like a domain but missing protocol
+    // e.g. "linkedin.com/in/me" or "www.portfolio.com"
+    if (!/^https?:\/\//i.test(finalValue)) {
+      finalValue = `https://${finalValue}`;
+      setFormData(prev => ({ ...prev, [name]: finalValue }));
+    }
+  };
+
   const handleRoleChange = (role: JobRole) => {
     setFormData(prev => ({ ...prev, role }));
   };
@@ -259,12 +274,14 @@ const App: React.FC = () => {
                   <div>
                     <label htmlFor="linkedIn" className="block text-sm font-medium text-slate-700 mb-1.5">LinkedIn Profile</label>
                     <input
-                      type="url"
+                      type="text"
+                      inputMode="url"
                       id="linkedIn"
                       name="linkedIn"
                       value={formData.linkedIn}
                       onChange={handleInputChange}
-                      placeholder="https://linkedin.com/in/..."
+                      onBlur={handleUrlBlur}
+                      placeholder="linkedin.com/in/username"
                       className="w-full px-4 py-3.5 sm:py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none bg-slate-50 focus:bg-white text-base"
                     />
                   </div>
@@ -275,12 +292,14 @@ const App: React.FC = () => {
                       Portfolio / Project Links <span className="text-slate-400 font-normal ml-1">(Optional)</span>
                     </label>
                     <input
-                      type="url"
+                      type="text"
+                      inputMode="url"
                       id="portfolio"
                       name="portfolio"
                       value={formData.portfolio}
                       onChange={handleInputChange}
-                      placeholder="https://github.com/... or https://dribbble.com/..."
+                      onBlur={handleUrlBlur}
+                      placeholder="github.com/username or yoursite.com"
                       className="w-full px-4 py-3.5 sm:py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none bg-slate-50 focus:bg-white text-base"
                     />
                   </div>
