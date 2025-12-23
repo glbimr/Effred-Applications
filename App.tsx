@@ -140,13 +140,13 @@ const App: React.FC = () => {
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <div className="bg-white max-w-md w-full rounded-2xl shadow-xl p-8 text-center animate-fade-in-up">
-          <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 size={32} />
+      <div className="min-h-screen bg-white sm:bg-slate-50 flex items-center justify-center p-0 sm:p-4">
+        <div className="bg-white max-w-md w-full sm:rounded-2xl sm:shadow-xl p-8 text-center animate-fade-in-up h-screen sm:h-auto flex flex-col justify-center">
+          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 size={40} />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">Application Received!</h2>
-          <p className="text-slate-600 mb-8">
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">Application Received!</h2>
+          <p className="text-slate-600 mb-12 text-lg">
             Thanks for applying to the <span className="font-semibold text-indigo-600">{formData.role}</span> position at Effred Technologies. We'll be in touch soon.
           </p>
           <button
@@ -162,7 +162,7 @@ const App: React.FC = () => {
                 resume: null
               });
             }}
-            className="w-full py-3 px-4 bg-slate-900 text-white rounded-xl font-medium hover:bg-slate-800 transition-colors"
+            className="w-full py-4 px-4 bg-slate-900 text-white rounded-xl font-medium hover:bg-slate-800 transition-colors text-lg shadow-lg"
           >
             Submit Another Application
           </button>
@@ -172,53 +172,53 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-      <div className="max-w-3xl w-full">
+    // Changed: Removed min-h-screen centering for mobile to allow natural flow
+    <div className="min-h-screen bg-white sm:bg-slate-50 sm:py-12 sm:px-6 lg:px-8 flex items-center justify-center">
+      <div className="w-full sm:max-w-3xl">
         
-        {/* Main Form Card */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
-          {/* Progress Bar / Decor */}
-          <div className="h-1.5 w-full bg-slate-100 relative">
+        {/* Main Form Card - Full screen on mobile, Card on Desktop */}
+        <div className="bg-white sm:rounded-2xl sm:shadow-xl overflow-hidden sm:border sm:border-slate-100 min-h-screen sm:min-h-0 flex flex-col">
+          
+          {/* Progress Bar - Sticky on top for mobile app feel */}
+          <div className="sticky top-0 z-20 h-1.5 w-full bg-slate-100">
             <div 
               className={`absolute top-0 bottom-0 w-1/3 bg-indigo-600 transition-all duration-500 ease-in-out ${getProgressClass()}`}
             ></div>
           </div>
 
-          <div className="p-8 sm:p-12">
+          <div className="flex-1 p-5 sm:p-12 pb-10">
             
             {/* Header Section */}
-            <div className="flex flex-col items-center text-center mb-10 border-b border-slate-100 pb-8">
+            <div className="flex flex-col items-center text-center mb-8 sm:mb-10 border-b border-slate-100 pb-6 sm:pb-8 pt-4 sm:pt-0">
               <a 
                 href="https://effred.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="group flex items-center justify-center gap-4 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight hover:text-indigo-600 transition-colors mb-2"
+                className="group flex items-center justify-center gap-3 text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight hover:text-indigo-600 transition-colors mb-2"
               >
                 <span>Effred Technologies</span>
-                
-                {/* Static External Link Icon */}
-                <ExternalLink size={24} className="text-slate-400 group-hover:text-indigo-600 transition-colors" />
+                <ExternalLink size={20} className="text-slate-400 group-hover:text-indigo-600 transition-colors" />
               </a>
-              <h1 className="text-xl sm:text-2xl text-slate-600 font-medium">Internship Application</h1>
-              <p className="mt-4 text-base text-slate-500 max-w-2xl">
+              <h1 className="text-lg sm:text-2xl text-slate-600 font-medium">Internship Application</h1>
+              <p className="mt-3 text-sm sm:text-base text-slate-500 max-w-2xl px-2">
                 We're looking for innovative minds to shape the future. Apply for our internship opportunities below.
               </p>
             </div>
 
             <RoleToggle selectedRole={formData.role} onChange={handleRoleChange} />
 
-            <form onSubmit={handleSubmit} className="space-y-8 mt-8">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8 mt-6 sm:mt-8">
               
               {/* Personal Info Section */}
-              <div className="space-y-6">
+              <div className="space-y-5 sm:space-y-6">
                 <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2 pb-2 border-b border-slate-100">
                   <div className="w-1 h-5 bg-indigo-500 rounded-full"></div>
                   Personal Information
                 </h3>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
                   <div>
-                    <label htmlFor="fullName" className="block text-sm font-medium text-slate-700 mb-1">Full Name <span className="text-red-500">*</span></label>
+                    <label htmlFor="fullName" className="block text-sm font-medium text-slate-700 mb-1.5">Full Name <span className="text-red-500">*</span></label>
                     <input
                       type="text"
                       id="fullName"
@@ -227,11 +227,11 @@ const App: React.FC = () => {
                       value={formData.fullName}
                       onChange={handleInputChange}
                       placeholder="Jane Doe"
-                      className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none"
+                      className="w-full px-4 py-3.5 sm:py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none bg-slate-50 focus:bg-white text-base"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">Email Address <span className="text-red-500">*</span></label>
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1.5">Email Address <span className="text-red-500">*</span></label>
                     <input
                       type="email"
                       id="email"
@@ -240,11 +240,11 @@ const App: React.FC = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="jane@example.com"
-                      className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none"
+                      className="w-full px-4 py-3.5 sm:py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none bg-slate-50 focus:bg-white text-base"
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1">Phone Number <span className="text-red-500">*</span></label>
+                    <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1.5">Phone Number <span className="text-red-500">*</span></label>
                     <input
                       type="tel"
                       id="phone"
@@ -253,11 +253,11 @@ const App: React.FC = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       placeholder="+1 (555) 000-0000"
-                      className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none"
+                      className="w-full px-4 py-3.5 sm:py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none bg-slate-50 focus:bg-white text-base"
                     />
                   </div>
                   <div>
-                    <label htmlFor="linkedIn" className="block text-sm font-medium text-slate-700 mb-1">LinkedIn Profile</label>
+                    <label htmlFor="linkedIn" className="block text-sm font-medium text-slate-700 mb-1.5">LinkedIn Profile</label>
                     <input
                       type="url"
                       id="linkedIn"
@@ -265,13 +265,13 @@ const App: React.FC = () => {
                       value={formData.linkedIn}
                       onChange={handleInputChange}
                       placeholder="https://linkedin.com/in/..."
-                      className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none"
+                      className="w-full px-4 py-3.5 sm:py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none bg-slate-50 focus:bg-white text-base"
                     />
                   </div>
                   
                   {/* Universal Optional Portfolio Field */}
                   <div className="md:col-span-2">
-                    <label htmlFor="portfolio" className="block text-sm font-medium text-slate-700 mb-1">
+                    <label htmlFor="portfolio" className="block text-sm font-medium text-slate-700 mb-1.5">
                       Portfolio / Project Links <span className="text-slate-400 font-normal ml-1">(Optional)</span>
                     </label>
                     <input
@@ -281,14 +281,14 @@ const App: React.FC = () => {
                       value={formData.portfolio}
                       onChange={handleInputChange}
                       placeholder="https://github.com/... or https://dribbble.com/..."
-                      className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none"
+                      className="w-full px-4 py-3.5 sm:py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none bg-slate-50 focus:bg-white text-base"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Resume Section */}
-              <div className="space-y-6">
+              <div className="space-y-5 sm:space-y-6">
                 <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2 pb-2 border-b border-slate-100">
                   <div className="w-1 h-5 bg-indigo-500 rounded-full"></div>
                   Documents
@@ -298,16 +298,16 @@ const App: React.FC = () => {
               </div>
 
               {/* Submit Button */}
-              <div className="pt-4">
+              <div className="pt-6 pb-2">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-slate-900 text-white font-bold py-4 px-8 rounded-xl hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-900/20 active:scale-[0.99] transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                  className="w-full bg-slate-900 text-white font-bold py-4 px-8 rounded-xl hover:bg-slate-800 focus:outline-none focus:ring-4 focus:ring-slate-900/20 active:scale-[0.98] transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-3 shadow-lg hover:shadow-xl text-lg"
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="animate-spin" size={20} />
-                      Submitting Application...
+                      <Loader2 className="animate-spin" size={24} />
+                      Submitting...
                     </>
                   ) : (
                     <>
@@ -316,7 +316,7 @@ const App: React.FC = () => {
                     </>
                   )}
                 </button>
-                <p className="mt-4 text-center text-xs text-slate-400">
+                <p className="mt-4 text-center text-xs text-slate-400 px-4">
                   By clicking submit, you agree to our Terms & Privacy Policy.
                 </p>
               </div>
@@ -326,7 +326,7 @@ const App: React.FC = () => {
         </div>
         
         {/* Footer */}
-        <div className="mt-8 text-center">
+        <div className="mt-6 mb-8 text-center hidden sm:block">
             <p className="text-slate-400 text-sm">© {new Date().getFullYear()} Effred Technologies. All rights reserved.</p>
         </div>
       </div>

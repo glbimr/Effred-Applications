@@ -66,38 +66,39 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          className={`relative group border-2 border-dashed rounded-xl p-8 transition-all duration-200 ease-in-out text-center cursor-pointer
+          className={`relative group border-2 border-dashed rounded-xl p-6 sm:p-8 transition-all duration-200 ease-in-out text-center cursor-pointer active:scale-[0.99]
             ${isDragging 
               ? 'border-indigo-500 bg-indigo-50' 
               : 'border-slate-300 hover:border-indigo-400 hover:bg-slate-50'
             }
-            ${error ? 'border-red-300 bg-red-50' : ''}
+            ${error ? 'border-red-300 bg-red-50' : 'bg-slate-50/50'}
           `}
         >
           <input
             type="file"
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
             onChange={handleInputChange}
             accept={accept}
           />
           <div className="flex flex-col items-center justify-center space-y-3 pointer-events-none">
-            <div className={`p-3 rounded-full ${isDragging ? 'bg-indigo-100 text-indigo-600' : 'bg-slate-100 text-slate-500 group-hover:bg-indigo-50 group-hover:text-indigo-600'} transition-colors`}>
+            <div className={`p-3 rounded-full ${isDragging ? 'bg-indigo-100 text-indigo-600' : 'bg-white text-slate-500 shadow-sm group-hover:text-indigo-600'} transition-colors`}>
               <UploadCloud size={24} />
             </div>
             <div className="text-sm text-slate-600">
-              <span className="font-semibold text-indigo-600">Click to upload</span> or drag and drop
+              <span className="font-semibold text-indigo-600">Tap to upload</span>
+              <span className="hidden sm:inline"> or drag and drop</span>
             </div>
             <p className="text-xs text-slate-400">PDF, DOC, DOCX (Max {maxSizeMB}MB)</p>
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-between p-4 bg-indigo-50 border border-indigo-100 rounded-xl">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-white rounded-lg text-indigo-600">
+        <div className="flex items-center justify-between p-4 bg-indigo-50 border border-indigo-100 rounded-xl animate-fade-in">
+          <div className="flex items-center space-x-3 overflow-hidden">
+            <div className="p-2 bg-white rounded-lg text-indigo-600 shadow-sm flex-shrink-0">
               <FileText size={20} />
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium text-slate-900 truncate max-w-[200px] sm:max-w-[300px]">
+            <div className="flex flex-col min-w-0">
+              <span className="text-sm font-medium text-slate-900 truncate">
                 {file.name}
               </span>
               <span className="text-xs text-slate-500">
@@ -108,15 +109,15 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           <button
             type="button"
             onClick={removeFile}
-            className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+            className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0 ml-2"
           >
-            <X size={18} />
+            <X size={20} />
           </button>
         </div>
       )}
       
       {error && (
-        <p className="mt-2 text-sm text-red-600 flex items-center">
+        <p className="mt-2 text-sm text-red-600 flex items-center animate-pulse">
           <span className="mr-1">⚠️</span> {error}
         </p>
       )}
